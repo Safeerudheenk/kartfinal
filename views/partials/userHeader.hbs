@@ -1,0 +1,82 @@
+
+  <nav>
+    <div class="header__navbar">
+      <div class="nav-center">
+        <h3>Shopping Cart</h3>
+      </div>
+        <div class="header__options"> 
+       <a style="color: #fff;" href="/admin/login">Admin</a>
+      </div>
+       <div class="header__options"> 
+        <button type="button" class="btn btn-primary " >
+          {{#if user}}
+             <a style="color: #fff;" href="/cart" >Cart</a>  
+          {{else}}
+               <a style="color: #fff;" href="/login" >Cart</a> 
+              {{/if}}
+            <span class="badge badge-light" id="cartCount" >{{cartCount}}</span>
+            </button>
+         </div>
+      <div class="header__options">
+       <div class="dropdown">
+         {{#if user}}
+           <span style="font-weight: bold;" >{{user.name}}</span>
+           {{else}}
+           <span>Account</span>
+           {{/if}}
+          <div class="dropdown-content">
+            {{#if user}}
+         <a style="color: #fff;" href="/logout">logout</a>
+         {{else}}
+         <a style="color: #fff;" href="/login" >login</a>
+         {{/if}}
+          </div>
+            </div>
+      </div>
+      </div>
+    </nav>
+
+
+<style>
+  .header__navbar {
+    display: flex;
+    align-items: center;
+  }
+  .header__options {
+    padding: 1.5rem;
+    color: #fff;
+  }
+  nav {
+  background: #2680c0;
+  padding:1.5rem;
+  margin-bottom: 1rem;
+}
+.nav-center {
+  width: 100%;
+  margin: 0 auto;
+}
+nav h3 {
+  color: #fff;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color:#2680c0;
+  min-width: fit-content;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+</style>

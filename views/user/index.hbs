@@ -1,0 +1,39 @@
+<section style="background-color:  rgb(234, 237, 237); min-height: 67rem;" >
+  <div class="container p-1 " >
+    {{#if user}}
+    {{else}}
+       <p style="text-align: center; color: red; font-weight: bold;" > Login to add items to cart!!!</p>
+    {{/if}}
+    <div class="row">
+      {{#each products}}
+      <div class="card mt-4 ml-3 col-md-3 col-sm-6 " style="width: 18rem; height: 24rem;  margin:auto; justify-content: space-between">
+  <img class="card-img-top mt-1" style="width: 50%; height: 40%; margin:0 auto" src="/images/{{this._id}}.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5  class="card-title"> <a href="/productDetails/{{this._id}}" >{{this.name}}</a> </h5>
+
+    <p class="card-text " style="font-size: smaller;">{{this.description}}</p>
+    <h6 class="card-text " style="text-align: center;">Rs {{this.price}}</h6>    
+    {{!-- <a href="addToCart/{{this._id}}" class="btn btn-primary " style="position: absolute ; bottom:10px; margin-left:1.7rem; width: 50%;"  >Add to cart</a> --}}
+    <button class="btn btn-primary " onclick="addToCart('{{this._id}}')" style="position: absolute ; bottom:10px; margin-left:1.7rem; width: 50%;" >Add to cart</button>
+  </div>
+</div>
+{{/each}}
+    </div>
+  </div>
+</section>
+
+<script>
+  function addToCart (proId){
+    $.ajax({
+      url:'/addToCart/' + proId,
+      method:'get',
+      success:(response) => {
+        if(response.status){
+          let count =$('#cartCount').html()
+          count= parseInt(count)+1
+          $('#cartCount').html(count)
+        }
+      }
+    })
+  }
+</script>

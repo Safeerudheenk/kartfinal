@@ -1,0 +1,29 @@
+<section style="background-color:  rgb(234, 237, 237); min-height: 67rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="/images/{{product._id}}.jpg">
+            </div>
+            <div class="col-md-6 details" >
+                <h3>{{product.name}}</h3>
+                <h5 style="font-weight: bold;">{{product.price}}</h5>
+                <h5>{{product.description}}</h5>
+                <button onclick="addToCart('{{product._id}}')" class=" mt-5 primary btn btn-success" style="width: 15rem;" >Add to cart</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    img{
+        margin:auto;
+        width: 40rem;
+        height: 40rem;
+    }
+    .details {
+        margin: 10px;
+    }
+</style>
+
+
