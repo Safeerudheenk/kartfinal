@@ -1,26 +1,26 @@
 <section>
-    <div class="container">
-        <div class="row">
-            <table class="table">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Name</th>
-      <th scope="col">Category</th>
-      <th scope="col">Price</th>
-    </tr>
-  </thead>
-  <tbody>
-      {{#each product }}
-    <tr>
-      <th scope="row"><img style="width: 60px ; height: 50px;" src="/images/{{this.item}}.jpg"</th>
-      <td>{{this.product.name}}</td>
-      <td>{{this.product.category}}</td>
-      <td>{{this.product.price}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
-        </div>
+  <div class="container">
+    <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each product }}
+          <tr>
+            <th scope="row"><img style="width: 60px ; height: 50px;" src="/images/{{this.item}}.jpg" </th>
+            <td>{{this.product.name}}</td>
+            <td>{{this.product.category}}</td>
+            <td>{{this.product.price}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
+  </div>
 </section>

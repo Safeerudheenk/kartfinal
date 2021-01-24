@@ -1,69 +1,73 @@
 <section>
     <div class="container mt-5">
-        <form id="checkoutForm" >
-        <div class="row">
-            <div class="col-md-6" style="margin:auto;">
-                <div>
-                    <label for="">Address</label>
-                    <input class="form-control" type="text" id="address" name="address">
+        <form id="checkoutForm">
+            <div class="row">
+                <div class="col-md-6" style="margin:auto;">
+                    <div>
+                        <label for="">Address</label>
+                        <input class="form-control" type="text" id="address" name="address">
 
-                     <label for="">pincode</label>
-                    <input class="form-control" type="text" id="pincode" name="pincode">
+                        <label for="">pincode</label>
+                        <input class="form-control" type="text" id="pincode" name="pincode">
 
-                     <label for="">Mobile Number</label>
-                    <input class="form-control" type="text" id="mobileNumber" name="mobileNumber">
-                    <input type="text" name="userId" value="{{user._id}}" hidden >
-                    {{!-- <hr> --}}
+                        <label for="">Mobile Number</label>
+                        <input class="form-control" type="text" id="mobileNumber" name="mobileNumber">
+                        <input type="text" name="userId" value="{{user._id}}" hidden>
+                        {{!--
+                        <hr> --}}
 
-                <table class="table mt-5">
-                <thead>
-                    <tr>
-                        <th scope="col" >Item</th>
-                        <th scope="col" >Title</th>
-                        <th scope="col">Price</th>
-                        <th scope="col" >Quantity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each products}}
-                    <tr>
-                        
-                        <td style=""><img style="width: 50px; height: 50px;" src="/images/{{this.product._id}}.jpg"</td>
-                        <td>{{this.product.name}}</td>
-                        <td>{{this.product.price}}</td>
-                        
-                        <td>
-                           
-                            <span id="" >{{this.qty}}</span>
-                           
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+                        <table class="table mt-5">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each products}}
+                                <tr>
+
+                                    <td style=""><img style="width: 50px; height: 50px;"
+                                            src="/images/{{this.product._id}}.jpg" </td>
+                                    <td>{{this.product.name}}</td>
+                                    <td>{{this.product.price}}</td>
+
+                                    <td>
+
+                                        <span id="">{{this.qty}}</span>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="  ml-5 checkout">
+                        <h3>Total Amount : Rs {{total}}</h3>
+                        <hr>
+                        <div class="payment"
+                            style="display: flex; flex-direction: column; justify-content:space-evenly;">
+                            <p>payment Method</p>
+                            <label class="radio-" for="COD">
+                                <input type="radio" id="COD" name="paymentMethod" value="COD">COD
+                            </label>
+
+                            <label class="radio-" for="onlinePayment">
+                                <input type="radio" id="onlinePayment" name="paymentMethod" value="onlinePayment">Online
+                                Payment
+                            </label>
+                            <button class="btn btn-primary float-right">Checkout</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                 <div class="  ml-5 checkout">
-                     <h3>Total Amount : Rs {{total}}</h3>
-                     <hr>
-                     <div class="payment" style="display: flex; flex-direction: column; justify-content:space-evenly;">
-                         <p>payment Method</p>
-                         <label class="radio-" for="COD" >
-                             <input type="radio" id="COD" name="paymentMethod" value="COD">COD
-                             </label>
-                            
-                             <label class="radio-" for="onlinePayment">
-                             <input type="radio" id="onlinePayment" name="paymentMethod"  value="onlinePayment">Online Payment
-                         </label>
-                         <button class="btn btn-primary float-right" >Checkout</button>
-                     </div>
-                 </div>
-            </div>
-        </div>
         </form>
     </div>
 </section>
@@ -73,72 +77,72 @@
     $('#checkoutForm').submit((e) => {
         e.preventDefault()
         $.ajax({
-            url:'/placeOrder',
-            method:'post',
-            data:$('#checkoutForm').serialize(),
-            success:(response)=>{
-                if(response.success){
-                    location.href='/orderConfirm'
-                }else{
+            url: '/placeOrder',
+            method: 'post',
+            data: $('#checkoutForm').serialize(),
+            success: (response) => {
+                if (response.success) {
+                    location.href = '/orderConfirm'
+                } else {
                     payRazorpay(response);
                 }
             }
         })
     })
 
-    function payRazorpay (order) {
+    function payRazorpay(order) {
         var options = {
-      "key": "rzp_test_JEX0MmRrh5yfAV", // Enter the Key ID generated from the Dashboard
-       "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-       "currency": "INR",
-        "name": "Shopping Cart",
-        "description": "Test Transaction",
-        "image": "https://example.com/your_logo",
-       "order_id":order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-       "handler": function (response){
-        
-        verifyPayment(response, order);
-    },
-    "prefill": {
-        "name": "Gaurav Kumar",
-        "email": "gaurav.kumar@example.com",
-        "contact": "9999999999"
-    },
-    "notes": {
-        "address": "Razorpay Corporate Office"
-    },
-    "theme": {
-        "color": "#3399cc"
+            "key": "rzp_test_JEX0MmRrh5yfAV", // Enter the Key ID generated from the Dashboard
+            "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Shopping Cart",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+
+                verifyPayment(response, order);
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        }
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+
     }
-    }
-    var rzp1 = new Razorpay(options);
-     rzp1.open();
-    
-    }
-  
-    function verifyPayment(payment, order){
+
+    function verifyPayment(payment, order) {
         $.ajax({
-            url:'/verifyPayment',
-            method:'post',
-            data:{
+            url: '/verifyPayment',
+            method: 'post',
+            data: {
                 payment,
                 order
             },
-            success:(response) => {
-                if(response.status){
-                    location.href='/orderConfirm'
-                }else {
+            success: (response) => {
+                if (response.status) {
+                    location.href = '/orderConfirm'
+                } else {
                     alert("payment failed");
                 }
             }
         })
     }
 
-    
+
 </script>
- 
+
 <style>
-    label.radio-inline{
+    label.radio-inline {
         display: flex;
         align-items: center;
     }

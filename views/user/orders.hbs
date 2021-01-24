@@ -1,29 +1,29 @@
 <section>
-    <div class="container">
-        <div class="row">
-            <table class="table mt-4">
-  <thead>
-    <tr>
-      
-      <th scope="col">Address</th>
-      <th scope="col">Mobile</th>
-      <th scope="col">Pincode</th>
-     <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-      {{#each  orderDetails}}
-    <tr>
-      <th scope="row"></th>
-      <td>{{this.deliveryDetails.address}}</td>
-      <td>{{this.deliveryDetails.mobile}}</td>
-      <td>{{this.deliveryDetails.pincode}}</td>
-      <td>{{this.status}}</td>
-      <td><a class="btn btn-primary" href="/orderViewProducts/{{this._id}}" >view Products</a></td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
-        </div>
+  <div class="container">
+    <div class="row">
+      <table class="table mt-4">
+        <thead>
+          <tr>
+
+            <th scope="col">Address</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Pincode</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each orderDetails}}
+          <tr>
+            <th scope="row"></th>
+            <td>{{this.deliveryDetails.address}}</td>
+            <td>{{this.deliveryDetails.mobile}}</td>
+            <td>{{this.deliveryDetails.pincode}}</td>
+            <td>{{this.status}}</td>
+            <td><a class="btn btn-primary" href="/orderViewProducts/{{this._id}}">view Products</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
+  </div>
 </section>
